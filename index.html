@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>掌星文化 · 品牌合作月度服务满意度评估表</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #C41E3A;
+    --red-dark: #9B1529;
+    --red-light: #F5E6EA;
+    --black: #111111;
+    --gray-dark: #2A2A2A;
+    --gray-mid: #666666;
+    --gray-light: #F4F4F4;
+    --white: #FFFFFF;
+    --border: #E0E0E0;
+    --serif: 'Noto Serif SC', serif;
+    --sans: 'Noto Sans SC', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--gray-light);
+    font-family: var(--sans);
+    color: var(--black);
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--red);
+    border-radius: 4px 4px 0 0;
+    padding: 2.5rem 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 30px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header-badge {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.8);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-family: var(--sans);
+    font-weight: 300;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-family: var(--serif);
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.4;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 1;
+  }
+  .header-divider {
+    width: 40px;
+    height: 2px;
+    background: rgba(255,255,255,0.5);
+    margin-bottom: 1rem;
+  }
+  .header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.8;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Progress ── */
+  .progress-wrap {
+    background: var(--white);
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    padding: 1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-label {
+    font-size: 12px;
+    color: var(--gray-mid);
+    white-space: nowrap;
+    min-width: 80px;
+  }
+  .progress-track {
+    flex: 1;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 3px;
+    background: var(--red);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+  .progress-pct {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--red);
+    min-width: 32px;
+    text-align: right;
+  }
+
+  /* ── Form body ── */
+  .form-body {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 2rem 2.5rem;
+  }
+
+  /* ── Question card ── */
+  .q-card {
+    border-bottom: 1px solid var(--border);
+    padding: 1.75rem 0;
+  }
+  .q-card:last-of-type { border-bottom: none; }
+
+  .q-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.6rem;
+  }
+  .q-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--red);
+    text-transform: uppercase;
+  }
+  .q-required {
+    font-size: 11px;
+    color: var(--red);
+    background: var(--red-light);
+    padding: 1px 7px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+  .q-optional {
+    font-size: 11px;
+    color: var(--gray-mid);
+    background: var(--gray-light);
+    padding: 1px 7px;
+    border-radius: 2px;
+  }
+  .q-title {
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.6;
+    margin-bottom: 1.1rem;
+  }
+
+  /* ── Text input ── */
+  .text-input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--black);
+    background: var(--white);
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+  .text-input:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(196,30,58,0.08);
+  }
+  .text-input::placeholder { color: #bbb; }
+
+  /* ── Options ── */
+  .options-list { display: flex; flex-direction: column; gap: 9px; }
+  .option-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: border 0.15s, background 0.15s;
+    user-select: none;
+  }
+  .option-row:hover { border-color: #ccc; background: #fafafa; }
+  .option-row.selected { border-color: var(--red); background: var(--red-light); }
+
+  .radio-circle {
+    width: 17px; height: 17px;
+    border-radius: 50%;
+    border: 1.5px solid #ccc;
+    flex-shrink: 0;
+    margin-top: 2px;
+    position: relative;
+    transition: border 0.15s, background 0.15s;
+    background: var(--white);
+  }
+  .radio-circle::after {
+    content: '';
+    display: none;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--white);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .option-row.selected .radio-circle {
+    border-color: var(--red);
+    background: var(--red);
+  }
+  .option-row.selected .radio-circle::after { display: block; }
+
+  .option-text {
+    font-size: 14px;
+    color: var(--gray-dark);
+    line-height: 1.55;
+  }
+  .option-row.selected .option-text { color: var(--red-dark); font-weight: 500; }
+
+  /* ── Textarea ── */
+  textarea.text-input {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.7;
+  }
+
+  /* ── Error ── */
+  .err-tip {
+    display: none;
+    font-size: 12px;
+    color: var(--red);
+    margin-top: 7px;
+    padding-left: 2px;
+  }
+  .err-tip.visible { display: block; }
+
+  /* ── Submit ── */
+  .submit-wrap {
+    text-align: center;
+    padding: 2rem 0 0.5rem;
+  }
+  .submit-btn {
+    background: var(--red);
+    color: var(--white);
+    border: none;
+    border-radius: 3px;
+    padding: 14px 60px;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .submit-btn:hover { background: var(--red-dark); }
+  .submit-btn:active { transform: scale(0.98); }
+  .submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+  .submit-note {
+    font-size: 12px;
+    color: var(--gray-mid);
+    margin-top: 12px;
+  }
+
+  /* ── Success page ── */
+  #success-view { display: none; }
+  .success-wrap {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .success-icon-wrap {
+    width: 64px; height: 64px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+  .success-icon-wrap svg { width: 32px; height: 32px; }
+  .success-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 0.75rem;
+  }
+  .success-sub {
+    font-size: 14px;
+    color: var(--gray-mid);
+    line-height: 1.8;
+  }
+  .success-brand {
+    margin-top: 2rem;
+    font-size: 12px;
+    color: #bbb;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Wrapper ── */
+  .survey-container { max-width: 700px; margin: 0 auto; }
+
+  /* ── Sending overlay ── */
+  .sending-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(17,17,17,0.45);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+  }
+  .sending-overlay.active { display: flex; }
+  .sending-box {
+    background: var(--white);
+    border-radius: 4px;
+    padding: 2rem 2.5rem;
+    text-align: center;
+    font-size: 15px;
+    color: var(--black);
+  }
+  .spinner {
+    width: 28px; height: 28px;
+    border: 2.5px solid var(--border);
+    border-top-color: var(--red);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 600px) {
+    body { padding: 0 0 3rem; }
+    .header, .form-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .progress-wrap { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .submit-btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="survey-container">
+
+  <!-- ═══ FORM VIEW ═══ -->
+  <div id="form-view">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="header-badge">Monthly Evaluation · 月度评估</div>
+      <h1>掌星文化 · 品牌合作月度服务满意度评估表</h1>
+      <div class="header-divider"></div>
+      <p>为持续提升综合服务品质，优化双方协作流程，精准匹配品牌运营合作需求，本月特开展合作服务满意度评估工作。您的真实反馈与宝贵建议，是我们查漏补缺、迭代升级服务的重要依据，衷心感谢您的支持与配合！我们将以此为基础，不断优化，为您提供更优质的服务。</p>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-wrap">
+      <span class="progress-label" id="progress-label">0 / 7 已填写</span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <span class="progress-pct" id="progress-pct">0%</span>
+    </div>
+
+    <!-- Form body -->
+    <div class="form-body">
+      <form id="survey-form" novalidate>
+
+        <!-- Q1 -->
+        <div class="q-card">
+          <div class="q-meta"><span class="q-num">Q01</span><span class="q-required">必填</span></div>
+          <div class="q-title">合作品牌名称</div>
+          <input class="text-input" type="text" id="ans1" name="合作品牌名称" placeholder="请填写您的品牌名称" autocomplete="organization" oninput="updateProgress()" />
+          <div class="err-tip" id="err1">请填写合作品牌名称</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-card">
+          <div class="q-meta"><span class="q-num">Q02</span><span class="q-required">必填</span></div>
+          <div class="q-title">品牌专属对接负责人</div>
+          <input class="text-input" type="text" id="ans2" name="对接负责人" placeholder="请填写负责人姓名" autocomplete="name" oninput="updateProgress()" />
+          <div class="err-tip" id="err2">请填写对接负责人姓名</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-card">
+          <div class="q-meta"><span class="q-num">Q03</span><span class="q-required">必填</span></div>
+          <div class="q-title">您对本月双方整体合作服务的综合满意度</div>
+          <div class="options-list" id="opts3">
+            <div class="option-row" onclick="selectOpt(3,0,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">非常满意，全程协作顺畅，完全达成合作预期</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(3,1,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">比较满意，整体合作开展良好，仅细微细节可优化</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(3,2,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">一般，部分服务环节存在不足，有待针对性改善</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(3,3,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">不满意，合作协作问题较多，亟需全面调整整改</div>
+            </div>
+          </div>
+          <input type="hidden" id="val3" name="综合满意度" value="" />
+          <div class="err-tip" id="err3">请选择一项</div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-card">
+          <div class="q-meta"><span class="q-num">Q04</span><span class="q-required">必填</span></div>
+          <div class="q-title">日常业务咨询沟通中，我方工作消息响应时效</div>
+          <div class="options-list" id="opts4">
+            <div class="option-row" onclick="selectOpt(4,0,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">响应高效及时，可随时无缝对接业务</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(4,1,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">响应速度良好，不影响常规工作开展</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(4,2,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">响应速度一般，偶尔出现回复延迟情况</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(4,3,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">响应较为迟缓，已影响正常业务工作推进</div>
+            </div>
+          </div>
+          <input type="hidden" id="val4" name="消息响应时效" value="" />
+          <div class="err-tip" id="err4">请选择一项</div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="q-card">
+          <div class="q-meta"><span class="q-num">Q05</span><span class="q-required">必填</span></div>
+          <div class="q-title">针对贵方提出的业务需求与工作问题，我方的闭环处理成效</div>
+          <div class="options-list" id="opts5">
+            <div class="option-row" onclick="selectOpt(5,0,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">全部妥善解决，全程同步处理进度，闭环完整</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(5,1,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">绝大部分问题已解决，剩余事项持续跟进中</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(5,2,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">仅部分问题得到解决，后续进度反馈不够及时</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(5,3,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">未能有效解决诉求，问题处理落地效果不佳</div>
+            </div>
+          </div>
+          <input type="hidden" id="val5" name="闭环处理成效" value="" />
+          <div class="err-tip" id="err5">请选择一项</div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="q-card">
+          <div class="q-meta"><span class="q-num">Q06</span><span class="q-required">必填</span></div>
+          <div class="q-title">我方是否主动同步月度工作进展、提前告知协作配合相关事项</div>
+          <div class="options-list" id="opts6">
+            <div class="option-row" onclick="selectOpt(6,0,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">常态化主动同步各类节点，信息透明，无需主动问询</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(6,1,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">主动同步核心关键工作，少量细节需自行咨询</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(6,2,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">极少主动同步，需催促后方可获知工作进度</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(6,3,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">无主动信息同步，所有工作动态均需主动追问了解</div>
+            </div>
+          </div>
+          <input type="hidden" id="val6" name="主动同步信息" value="" />
+          <div class="err-tip" id="err6">请选择一项</div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="q-card">
+          <div class="q-meta"><span class="q-num">Q07</span><span class="q-required">必填</span></div>
+          <div class="q-title">本月店铺日常整体运营规划与落地推进节奏，是否符合贵方预期</div>
+          <div class="options-list" id="opts7">
+            <div class="option-row" onclick="selectOpt(7,0,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">完全符合，规划清晰、落地稳定，双方协作高效</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(7,1,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">基本符合，运营整体有序，仅节奏存在小幅波动</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(7,2,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">略有偏差，运营节奏统筹不足，执行落地存在疏漏</div>
+            </div>
+            <div class="option-row" onclick="selectOpt(7,3,this)">
+              <div class="radio-circle"></div>
+              <div class="option-text">偏差较大，运营推进混乱，亟需系统性调整优化</div>
+            </div>
+          </div>
+          <input type="hidden" id="val7" name="运营节奏符合度" value="" />
+          <div class="err-tip" id="err7">请选择一项</div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="q-card">
+          <div class="q-meta"><span class="q-num">Q08</span><span class="q-optional">选填</span></div>
+          <div class="q-title">补充意见与优化建议</div>
+          <textarea class="text-input" id="ans8" name="补充意见与建议" placeholder="若您在服务对接、协作配合、店铺运营等方面有任何改进想法或个性化需求，欢迎畅所欲言，我们将汇总复盘、积极优化，为后续深度合作保驾护航。"></textarea>
+        </div>
+
+        <!-- Submit -->
+        <div class="submit-wrap">
+          <button type="button" class="submit-btn" id="submit-btn" onclick="submitForm()">提 交 评 估</button>
+          <div class="submit-note">标注 <span style="color:var(--red)">必填</span> 的题目均须填写完毕后方可提交</div>
+        </div>
+
+      </form>
+    </div><!-- /form-body -->
+
+  </div><!-- /form-view -->
+
+  <!-- ═══ SUCCESS VIEW ═══ -->
+  <div id="success-view">
+    <div class="header" style="border-radius:4px 4px 0 0;">
+      <div class="header-badge">Monthly Evaluation · 月度评估</div>
+      <h1>掌星文化 · 品牌合作月度服务满意度评估表</h1>
+    </div>
+    <div class="success-wrap" style="border-top:none;border-radius:0 0 4px 4px;">
+      <div class="success-icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M7 16.5l6 6L25 10" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="success-title">感谢您的评估与反馈！</div>
+      <div class="success-sub">
+        您的真实反馈是我们持续优化服务的重要依据<br />
+        掌星文化团队将认真复盘、积极改进<br />
+        为双方后续深度合作持续提升服务品质
+      </div>
+      <div class="success-brand">掌星文化 · ZHANGXING CULTURE</div>
+    </div>
+  </div>
+
+</div><!-- /survey-container -->
+
+<!-- Sending overlay -->
+<div class="sending-overlay" id="sending-overlay">
+  <div class="sending-box">
+    <div class="spinner"></div>
+    正在提交，请稍候…
+  </div>
+</div>
+
+<script>
+  /* ─── 配置区 ─────────────────────────────────────────────
+   *
+   *  数据接收邮箱：berry58588@gmail.com
+   *
+   *  操作步骤（只需做一次）：
+   *  1. 打开 https://formspree.io，用 berry58588@gmail.com 注册
+   *  2. 点击 "+ New Form"
+   *     - Form name：掌星文化满意度评估
+   *     - Email：berry58588@gmail.com
+   *  3. 创建后会看到提交地址，例如：
+   *     https://formspree.io/f/xyzabcde
+   *     其中 "xyzabcde" 就是表单 ID
+   *  4. 将下方 YOUR_FORM_ID 替换为真实 ID，保存文件后上线
+   *
+   * ──────────────────────────────────────────────────────── */
+  var FORMSPREE_ID = 'maqazlbz'; // 数据将发送至 berry58588@gmail.com
+
+  var answers = { 3: null, 4: null, 5: null, 6: null, 7: null };
+  var optionLabels = {
+    3: ['非常满意，全程协作顺畅，完全达成合作预期','比较满意，整体合作开展良好，仅细微细节可优化','一般，部分服务环节存在不足，有待针对性改善','不满意，合作协作问题较多，亟需全面调整整改'],
+    4: ['响应高效及时，可随时无缝对接业务','响应速度良好，不影响常规工作开展','响应速度一般，偶尔出现回复延迟情况','响应较为迟缓，已影响正常业务工作推进'],
+    5: ['全部妥善解决，全程同步处理进度，闭环完整','绝大部分问题已解决，剩余事项持续跟进中','仅部分问题得到解决，后续进度反馈不够及时','未能有效解决诉求，问题处理落地效果不佳'],
+    6: ['常态化主动同步各类节点，信息透明，无需主动问询','主动同步核心关键工作，少量细节需自行咨询','极少主动同步，需催促后方可获知工作进度','无主动信息同步，所有工作动态均需主动追问了解'],
+    7: ['完全符合，规划清晰、落地稳定，双方协作高效','基本符合，运营整体有序，仅节奏存在小幅波动','略有偏差，运营节奏统筹不足，执行落地存在疏漏','偏差较大，运营推进混乱，亟需系统性调整优化']
+  };
+
+  function selectOpt(q, idx, el) {
+    answers[q] = idx;
+    document.getElementById('val' + q).value = optionLabels[q][idx];
+    var rows = document.getElementById('opts' + q).querySelectorAll('.option-row');
+    rows.forEach(function(r, i) { r.classList.toggle('selected', i === idx); });
+    var err = document.getElementById('err' + q);
+    if (err) err.classList.remove('visible');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    var filled = 0;
+    if (document.getElementById('ans1').value.trim()) filled++;
+    if (document.getElementById('ans2').value.trim()) filled++;
+    [3,4,5,6,7].forEach(function(q) { if (answers[q] !== null) filled++; });
+    var pct = Math.round(filled / 7 * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-pct').textContent = pct + '%';
+    document.getElementById('progress-label').textContent = filled + ' / 7 已填写';
+  }
+
+  function submitForm() {
+    var valid = true;
+    var firstErrEl = null;
+
+    var a1 = document.getElementById('ans1').value.trim();
+    var a2 = document.getElementById('ans2').value.trim();
+    var e1 = document.getElementById('err1');
+    var e2 = document.getElementById('err2');
+
+    if (!a1) { e1.classList.add('visible'); valid = false; if (!firstErrEl) firstErrEl = e1; } else { e1.classList.remove('visible'); }
+    if (!a2) { e2.classList.add('visible'); valid = false; if (!firstErrEl) firstErrEl = e2; } else { e2.classList.remove('visible'); }
+
+    [3,4,5,6,7].forEach(function(q) {
+      var err = document.getElementById('err' + q);
+      if (answers[q] === null) {
+        err.classList.add('visible'); valid = false;
+        if (!firstErrEl) firstErrEl = err;
+      } else { err.classList.remove('visible'); }
+    });
+
+    if (!valid) {
+      firstErrEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    if (FORMSPREE_ID === 'YOUR_FORM_ID') {
+      alert('提示：请先在 HTML 文件中配置您的 Formspree 表单 ID，再上线使用。\n\n当前为演示模式，假装提交成功。');
+      showSuccess();
+      return;
+    }
+
+    var overlay = document.getElementById('sending-overlay');
+    overlay.classList.add('active');
+    document.getElementById('submit-btn').disabled = true;
+
+    var formData = new FormData(document.getElementById('survey-form'));
+
+    fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(res) {
+      overlay.classList.remove('active');
+      if (res.ok) {
+        showSuccess();
+      } else {
+        document.getElementById('submit-btn').disabled = false;
+        alert('提交失败，请检查网络后重试。');
+      }
+    })
+    .catch(function() {
+      overlay.classList.remove('active');
+      document.getElementById('submit-btn').disabled = false;
+      alert('网络错误，请检查连接后重试。');
+    });
+  }
+
+  function showSuccess() {
+    document.getElementById('form-view').style.display = 'none';
+    document.getElementById('success-view').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
